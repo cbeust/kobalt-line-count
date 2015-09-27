@@ -1,0 +1,41 @@
+package com.beust.kobalt.plugin.linecount
+
+import com.beust.kobalt.api.BasePlugin
+import com.beust.kobalt.internal.TaskResult
+import java.nio.file.attribute.BasicFileAttributes
+
+import com.beust.kobalt.api.Project
+import com.beust.kobalt.api.annotation.Task
+import com.beust.kobalt.misc.KobaltLogger
+import java.nio.file.*
+
+public class Main : BasePlugin(), KobaltLogger {
+    override val name = "kobalt-line-count"
+
+    override fun apply(project: Project) {
+        println("*** Applying plugin ${name} with project ${project}")
+    }
+
+    @Task(name = "lineCount", description = "Count the lines", runBefore = arrayOf("compile"))
+    fun lineCount(project: Project): TaskResult {
+
+        var fileCount = 0
+        var lineCount : Long = 0
+        val matcher = FileSystems.getDefault().getPathMatcher("glob:**.kt")
+        project.sourceDirectories.forEach {
+            Files.walkFileTree(Paths.get(it), object: SimpleFileVisitor<Path>() {
+                override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
+                    log(2, "File: ${path}")
+                    if (matcher.matches(path)) {
+                        fileCount++
+                        lineCount += Files.lines(path).count()
+                        log(2, "  MATCH")
+                    }
+                    return FileVisitResult.CONTINUE
+                }
+            })
+        }
+        log(1, "Found ${lineCount} lines in ${fileCount} files")
+        return TaskResult()
+    }
+}
