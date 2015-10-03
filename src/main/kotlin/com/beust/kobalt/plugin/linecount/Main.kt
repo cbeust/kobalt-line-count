@@ -4,7 +4,7 @@ import com.beust.kobalt.api.BasePlugin
 import com.beust.kobalt.internal.TaskResult
 import java.nio.file.attribute.BasicFileAttributes
 
-import com.beust.kobalt.api.Project
+import com.beust.kobalt.api.*
 import com.beust.kobalt.api.annotation.Task
 import com.beust.kobalt.misc.KobaltLogger
 import java.nio.file.*
@@ -12,7 +12,7 @@ import java.nio.file.*
 public class Main : BasePlugin(), KobaltLogger {
     override val name = "kobalt-line-count"
 
-    override fun apply(project: Project) {
+    override fun apply(project: Project, context: KobaltContext) {
         println("*** Applying plugin ${name} with project ${project}")
     }
 
