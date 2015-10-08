@@ -2,12 +2,16 @@ package com.beust.kobalt.plugin.linecount
 
 import com.beust.kobalt.api.BasePlugin
 import com.beust.kobalt.internal.TaskResult
-import java.nio.file.attribute.BasicFileAttributes
-
 import com.beust.kobalt.api.*
 import com.beust.kobalt.api.annotation.Task
 import com.beust.kobalt.misc.KobaltLogger
+
+import java.nio.file.attribute.BasicFileAttributes
 import java.nio.file.*
+
+fun main(argv: Array<String>) {
+    com.beust.kobalt.main(argv)
+}
 
 public class Main : BasePlugin(), KobaltLogger {
     override val name = "kobalt-line-count"

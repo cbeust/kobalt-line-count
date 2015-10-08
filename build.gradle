@@ -1,0 +1,30 @@
+buildscript {
+    ext.kotlin_version = '0.14.449'
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/cbeust/maven"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+        classpath "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'http://dl.bintray.com/cbeust/maven' }
+}
+
+apply plugin: 'kotlin'
+
+dependencies {
+    compile "com.google.guava:guava:18.0"
+    compile "com.beust:kobalt:0.155"
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
