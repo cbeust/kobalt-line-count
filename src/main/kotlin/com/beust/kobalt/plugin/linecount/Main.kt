@@ -23,17 +23,20 @@ public class Main : BasePlugin(), KobaltLogger {
         var lineCount : Long = 0
         val matcher = FileSystems.getDefault().getPathMatcher("glob:**.kt")
         project.sourceDirectories.forEach {
-            Files.walkFileTree(Paths.get(it), object: SimpleFileVisitor<Path>() {
-                override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
-                    log(2, "File: ${path}")
-                    if (matcher.matches(path)) {
-                        fileCount++
-                        lineCount += Files.lines(path).count()
-                        log(2, "  MATCH")
+            val path = Paths.get(it)
+            if (path.toFile().exists()) {
+                Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
+                    override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
+                        log(2, "File: ${path}")
+                        if (matcher.matches(path)) {
+                            fileCount++
+                            lineCount += Files.lines(path).count()
+                            log(2, "  MATCH")
+                        }
+                        return FileVisitResult.CONTINUE
                     }
-                    return FileVisitResult.CONTINUE
-                }
-            })
+                })
+            }
         }
         log(1, "Found ${lineCount} lines in ${fileCount} files")
         return TaskResult()
