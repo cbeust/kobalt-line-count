@@ -18,7 +18,7 @@ val project = kotlinProject {
     version = "0.8"
 
     dependencies {
-        compile("com.beust:kobalt:0.15")
+        compile("com.beust:kobalt:0.154")
     }
 }
 
