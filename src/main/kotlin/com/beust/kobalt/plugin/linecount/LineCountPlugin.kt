@@ -15,7 +15,7 @@ fun main(argv: Array<String>) {
     com.beust.kobalt.main(argv)
 }
 
-public class LineCountMain : BasePlugin(), KobaltLogger {
+public class LineCountPlugin : BasePlugin(), KobaltLogger {
     companion object {
         const val NAME : String = "kobalt-line-count"
     }
@@ -64,7 +64,7 @@ data class LineCountInfo(var suffix: String = "**kt")
 public fun lineCount(init: LineCountInfo.() -> Unit): LineCountInfo {
     with(LineCountInfo()) {
         init()
-        (Plugins.getPlugin(LineCountMain.NAME) as LineCountMain).info = this
+        (Kobalt.findPlugin(LineCountPlugin.NAME) as LineCountPlugin).info = this
         return this
     }
 }
