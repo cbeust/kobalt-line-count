@@ -1,6 +1,5 @@
 package com.beust.kobalt.plugin.linecount
 
-import com.beust.kobalt.Plugins
 import com.beust.kobalt.api.BasePlugin
 import com.beust.kobalt.internal.TaskResult
 import com.beust.kobalt.api.*
@@ -24,33 +23,34 @@ public class LineCountPlugin : BasePlugin(), KobaltLogger {
     var info: LineCountInfo = LineCountInfo()
 
     override fun apply(project: Project, context: KobaltContext) {
-        println("*** Applying plugin ${name} with project ${project}")
+        println("*** Applying plugin $name with project $project")
         println("*** Adding dynamic task")
-        addTask(project, "dynamicTask", wrapAfter = arrayListOf("compile")) {
-            println("DYNAMIC")
+        addTask(project, "dynamicTask", runBefore = listOf("compile")) {
+            println("Dynamic task")
             TaskResult()
         }
     }
 
     @Task(name = "lineCount", description = "Count the lines", runBefore = arrayOf("compile"))
     fun lineCount(project: Project): TaskResult {
-
         var fileCount = 0
         var lineCount : Long = 0
         log(1, "Finding files that end in ${info.suffix}")
         val matcher = FileSystems.getDefault().getPathMatcher("glob:" + info.suffix)
-        val path = Paths.get(project.directory)
-        if (path.toFile().exists()) {
-            Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
-                override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
-                    if (matcher.matches(path)) {
-                        fileCount++
-                        lineCount += Files.lines(path).count()
-                        log(3, "  MATCH $path")
+        project.sourceDirectories.forEach {
+            val path = Paths.get(it)
+            if (path.toFile().exists()) {
+                Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
+                    override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
+                        if (matcher.matches(path)) {
+                            fileCount++
+                            lineCount += Files.lines(path).count()
+                            log(3, "  MATCH $path")
+                        }
+                        return FileVisitResult.CONTINUE
                     }
-                    return FileVisitResult.CONTINUE
-                }
-            })
+                })
+            }
         }
         log(1, "Found $lineCount lines in $fileCount files")
         return TaskResult()

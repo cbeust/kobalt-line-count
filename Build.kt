@@ -10,8 +10,9 @@ val plugins = plugins(
 )
 
 val lc = lineCount {
-    suffix = "**.md"
+    suffix = "**Plugin.kt"
 }
+
 val project = kotlinProject {
     name = "kobalt-line-count"
     group = "com.beust.kobalt"
