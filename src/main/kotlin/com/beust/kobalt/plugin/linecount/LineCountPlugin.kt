@@ -43,11 +43,10 @@ public class LineCountPlugin : BasePlugin(), KobaltLogger {
         if (path.toFile().exists()) {
             Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
                 override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
-                    log(2, "File: $path")
                     if (matcher.matches(path)) {
                         fileCount++
                         lineCount += Files.lines(path).count()
-                        log(2, "  MATCH $path")
+                        log(3, "  MATCH $path")
                     }
                     return FileVisitResult.CONTINUE
                 }

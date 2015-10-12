@@ -23,7 +23,7 @@ apply plugin: 'kotlin'
 
 dependencies {
     compile "com.google.guava:guava:18.0"
-    compile "com.beust:kobalt:0.171"
+    compile "com.beust:kobalt:0.174"
 }
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
