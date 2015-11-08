@@ -17,7 +17,7 @@ val project = kotlinProject {
     name = "kobalt-line-count"
     group = "com.beust.kobalt"
     artifactId = name
-    version = "0.15"
+    version = "0.16"
 
     dependencies {
 //        compile("file:" + homeDir("kotlin/kobalt/kobaltBuild/libs/kobalt-0.168.jar"))
@@ -26,9 +26,6 @@ val project = kotlinProject {
 
     assemble {
         mavenJars {
-            manifest {
-                attributes("Kobalt-Plugin-Class", "com.beust.kobalt.plugin.linecount.LineCountPlugin")
-            }
         }
     }
 
