@@ -1,20 +1,21 @@
 package com.beust.kobalt.plugin.linecount
 
 import com.beust.kobalt.api.BasePlugin
-import com.beust.kobalt.internal.TaskResult
-import com.beust.kobalt.api.*
+import com.beust.kobalt.api.Kobalt
+import com.beust.kobalt.api.KobaltContext
+import com.beust.kobalt.api.Project
 import com.beust.kobalt.api.annotation.Directive
 import com.beust.kobalt.api.annotation.Task
-import com.beust.kobalt.misc.KobaltLogger
-
-import java.nio.file.attribute.BasicFileAttributes
+import com.beust.kobalt.internal.TaskResult
+import com.beust.kobalt.misc.log
 import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
 
 fun main(argv: Array<String>) {
     com.beust.kobalt.main(argv)
 }
 
-public class LineCountPlugin : BasePlugin(), KobaltLogger {
+public class LineCountPlugin : BasePlugin() {
     companion object {
         const val NAME : String = "kobalt-line-count"
     }
