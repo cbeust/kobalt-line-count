@@ -1,6 +1,6 @@
 <kobalt-plugin>
     <name>kobalt-line-count</name>
-    <plugins>
+    <plugin-actors>
         <class-name>com.beust.kobalt.plugin.linecount.LineCountPlugin</class-name>
-    </plugins>
+    </plugin-actors>
 </kobalt-plugin>
