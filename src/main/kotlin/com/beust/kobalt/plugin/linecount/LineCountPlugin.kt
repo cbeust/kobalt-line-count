@@ -1,12 +1,9 @@
 package com.beust.kobalt.plugin.linecount
 
-import com.beust.kobalt.api.BasePlugin
-import com.beust.kobalt.api.Kobalt
-import com.beust.kobalt.api.KobaltContext
-import com.beust.kobalt.api.Project
+import com.beust.kobalt.TaskResult
+import com.beust.kobalt.api.*
 import com.beust.kobalt.api.annotation.Directive
 import com.beust.kobalt.api.annotation.Task
-import com.beust.kobalt.internal.TaskResult
 import com.beust.kobalt.misc.log
 import java.nio.file.*
 import java.nio.file.attribute.BasicFileAttributes
@@ -15,22 +12,21 @@ fun main(argv: Array<String>) {
     com.beust.kobalt.main(argv)
 }
 
-public class LineCountPlugin : BasePlugin() {
+public class LineCountPlugin : BasePlugin(), ITaskContributor {
+
+    // ITaskContributor
+    override fun tasksFor(context: KobaltContext) = listOf(
+            DynamicTask(this, "dynamicTask", "Dynamic task", runBefore = listOf("compile"), closure = {
+                TaskResult()
+            })
+    )
+
     companion object {
         const val NAME : String = "kobalt-line-count"
     }
     override val name = NAME
 
     var info: LineCountInfo = LineCountInfo()
-
-    override fun apply(project: Project, context: KobaltContext) {
-        println("*** Applying plugin $name with project $project")
-        println("*** Adding dynamic task")
-        addTask(project, "dynamicTask", runBefore = listOf("compile")) {
-            println("Dynamic task")
-            TaskResult()
-        }
-    }
 
     @Task(name = "lineCount", description = "Count the lines", runBefore = arrayOf("compile"))
     fun lineCount(project: Project): TaskResult {
