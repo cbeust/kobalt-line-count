@@ -17,11 +17,10 @@ val project = kotlinProject {
     name = "kobalt-line-count"
     group = "com.beust.kobalt"
     artifactId = name
-    version = "0.16"
+    version = "0.17"
 
     dependencies {
-//        compile("file:" + homeDir("kotlin/kobalt/kobaltBuild/libs/kobalt-0.168.jar"))
-        compile("com.beust:kobalt:0.226")
+        compile("com.beust:kobalt-plugin-api:")
     }
 
     assemble {
