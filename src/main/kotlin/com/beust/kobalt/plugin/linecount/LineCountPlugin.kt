@@ -13,12 +13,12 @@ import java.nio.file.attribute.BasicFileAttributes
 //}
 
 public class LineCountPlugin : BasePlugin(), ITaskContributor {
-    override fun tasksFor(context: KobaltContext)
-        = listOf(DynamicTask(this, "dynamicTask", "Dynamic task", runBefore = listOf("compile"),
-            closure = { project ->
-                println("Running dynamic task")
+    // ITaskContributor
+    override fun tasksFor(context: KobaltContext) = listOf(
+            DynamicTask(this, "dynamicTask", "Dynamic task", runBefore = listOf("compile"), closure = {
                 TaskResult()
-            }))
+            })
+    )
 
     companion object {
         const val NAME : String = "kobalt-line-count"

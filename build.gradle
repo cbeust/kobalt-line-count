@@ -1,4 +1,5 @@
 buildscript {
+    ext.kotlin_version = '1.0.0-beta-3595'
     ext.kotlin_version = '0.14.449'
     repositories {
         jcenter()
@@ -10,6 +11,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
         classpath "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -23,7 +25,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     compile "com.google.guava:guava:18.0"
-    compile "com.beust:kobalt:0.174"
+    compile "com.beust:kobalt:0.329"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
