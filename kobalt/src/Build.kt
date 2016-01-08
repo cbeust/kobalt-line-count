@@ -28,7 +28,7 @@ val project = kotlinProject {
         }
     }
 
-    jcenter {
+    bintray {
         publish = true
     }
 
