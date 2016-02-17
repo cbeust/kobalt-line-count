@@ -13,7 +13,7 @@ import com.beust.kobalt.plugin.publish.*
 //    suffix = "**Plugin.kt"
 //}
 
-val project = kotlinProject {
+val project = project {
     name = "kobalt-line-count"
     group = "com.beust.kobalt"
     artifactId = name
@@ -28,7 +28,7 @@ val project = kotlinProject {
         }
     }
 
-    jcenter {
+    bintray {
         publish = true
     }
 
