@@ -14,10 +14,17 @@ import java.nio.file.attribute.BasicFileAttributes
 
 public class LineCountPlugin : BasePlugin(), ITaskContributor {
     // ITaskContributor
-    override fun tasksFor(context: KobaltContext) = listOf(
-            DynamicTask(this, "dynamicTask", "Dynamic task", runBefore = listOf("compile"), closure = {
-                TaskResult()
-            })
+    override fun tasksFor(project: Project, context: KobaltContext) = listOf(
+            DynamicTask(this,
+                    "dynamicTask",
+                    "Dynamic task",
+                    "other",
+                    project,
+                    runBefore = listOf("compile"),
+                    closure = {
+                        TaskResult()
+                    }
+            )
     )
 
     companion object {
