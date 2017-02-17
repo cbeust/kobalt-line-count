@@ -17,10 +17,10 @@ val project = project {
     name = "kobalt-line-count"
     group = "com.beust.kobalt"
     artifactId = name
-    version = "0.6"
+    version = "0.23"
 
     dependencies {
-        compile("com.beust:kobalt-plugin-api:")
+        compile("com.beust:kobalt-plugin-api:0.930")
     }
 
     assemble {
