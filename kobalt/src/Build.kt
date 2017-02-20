@@ -20,7 +20,7 @@ val project = project {
     version = "0.23"
 
     dependencies {
-        compile("com.beust:kobalt-plugin-api:0.930")
+        compile("com.beust:kobalt-plugin-api:0.939")
     }
 
     assemble {

@@ -12,7 +12,10 @@ import java.nio.file.attribute.BasicFileAttributes
 //    com.beust.kobalt.main(argv)
 //}
 
-public class LineCountPlugin : BasePlugin(), ITaskContributor {
+/**
+ * A simple line counting plug-in for Kobalt.
+ */
+class LineCountPlugin : BasePlugin(), ITaskContributor {
     // ITaskContributor
     override fun tasksFor(project: Project, context: KobaltContext) = listOf(
             DynamicTask(this,
@@ -44,7 +47,7 @@ public class LineCountPlugin : BasePlugin(), ITaskContributor {
             val path = Paths.get(it)
             if (path.toFile().exists()) {
                 Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
-                    override public fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
+                    override fun visitFile(path: Path, attrs: BasicFileAttributes): FileVisitResult {
                         if (matcher.matches(path)) {
                             fileCount++
                             lineCount += Files.lines(path).count()
@@ -63,7 +66,7 @@ public class LineCountPlugin : BasePlugin(), ITaskContributor {
 data class LineCountInfo(var suffix: String = "**kt")
 
 @Directive
-public fun lineCount(init: LineCountInfo.() -> Unit): LineCountInfo {
+fun lineCount(init: LineCountInfo.() -> Unit): LineCountInfo {
     with(LineCountInfo()) {
         init()
         (Kobalt.findPlugin(LineCountPlugin.NAME) as LineCountPlugin).info = this
